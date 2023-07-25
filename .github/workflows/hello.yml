@@ -11,5 +11,9 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 14
-      - name: Polite greeting
+      - name: Polite greeting in workflow
         run: echo "Hello"
+      - name: Polite greeting in action
+        uses: ./.github/actions/greeting
+        with:
+          username: World
