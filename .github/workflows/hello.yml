@@ -19,3 +19,5 @@ jobs:
           username: World
       - name: Install dotnet
         uses: ./.github/actions/install-dotnet
+      - name: Install version tools
+        uses: ./.github/actions/install-version-tools
