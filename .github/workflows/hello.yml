@@ -17,3 +17,5 @@ jobs:
         uses: ./.github/actions/greeting
         with:
           username: World
+      - name: Install dotnet
+        uses: ./.github/actions/install-dotnet
