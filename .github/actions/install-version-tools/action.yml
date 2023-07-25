@@ -1,0 +1,20 @@
+name: Install version tools
+description: Installs my version tools
+runs:
+  using: "composite"
+  steps:
+    - name: Install version tools using NPM
+      shell: bash
+      run: |
+        npm install -g https://github.com/kagekirin/node-package-version/tarball/main
+        npm install -g https://github.com/kagekirin/csproj-version/tarball/main
+        npm install -g https://github.com/kagekirin/unity-bundle-version/tarball/main
+        which node-package-version
+        node-package-version --version
+        node-package-version --help
+        which csproj-version
+        csproj-version --version
+        csproj-version --help
+        which unity-bundle-version
+        unity-bundle-version --version
+        unity-bundle-version --help
