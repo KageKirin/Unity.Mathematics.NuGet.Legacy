@@ -1,0 +1,33 @@
+{
+    "name": "com.unity.mathematics.nuget",
+    "version": "0.0.0-0",
+    "displayName": "Unity.Mathematics (NuGet) [DO NOT USE IN UNITY]",
+    "description": "",
+    "unity": "2021.1",
+    "files": [
+        "*.meta",
+        "*.md",
+        "Unity.Mathematics/bin/Release/netstandard2.1/*.dll",
+        "Unity.Mathematics/bin/Release/netstandard2.1/*.pdb",
+        "Unity.Mathematics/bin/Release/netstandard2.1/*.meta"
+    ],
+    "dependencies": {},
+    "keywords": [
+        "csharp",
+        "mathematics",
+        "linear algebra"
+    ],
+    "author": {
+        "name": "Chris Helmich",
+        "email": "kagekirin@gmail.com",
+        "url": "https://github.com/kagekirin"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kagekirin/unity.mathematics.nuget.git",
+        "directory": "unity.mathematics.nuget"
+    },
+    "publishConfig": {
+        "registry": "https://npm.github.com/@kagekirin"
+    }
+}
