@@ -1,0 +1,12 @@
+name: Polite greeting
+description: Prints a polite greeting
+inputs:
+  username:
+    required: false
+    description: Name of an user to greet
+    default: John
+runs:
+  using: "composite"
+  steps:
+    - run: echo Hello ${{ inputs.username }}
+      shell: bash
