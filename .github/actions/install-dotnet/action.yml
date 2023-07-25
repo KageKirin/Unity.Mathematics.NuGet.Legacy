@@ -3,10 +3,6 @@ description: Installs the .NET SDK and checks installation
 runs:
   using: "composite"
   steps:
-    - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '7.0.x'
     - name: Check .NET version
       shell: bash
       run: dotnet --version
