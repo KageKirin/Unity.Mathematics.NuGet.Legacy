@@ -1,0 +1,20 @@
+name: Unity.Mathematics.NuGet/build-pr
+
+on:
+  push:
+    branches-ignore:
+      - 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+        framework: [netstandard2.1, net6.0, net7.0]
+    steps:
+    - uses: actions/checkout@v3.5.0
+    - uses: ./.github/jobactions/build
+      with:
+        configuration: ${{ matrix.configuration }}
+        framework: ${{ matrix.framework }}

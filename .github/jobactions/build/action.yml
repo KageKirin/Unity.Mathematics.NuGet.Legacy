@@ -1,0 +1,17 @@
+name: jobactions/build
+inputs:
+  configuration:
+    required: false
+    default: Debug
+  framework:
+    required: true
+runs:
+  using: composite
+  steps:
+  - uses: kagekirin/gha-utils/.github/actions/install-prerequisites@main
+  - uses: kagekirin/gha-utils/.github/actions/install-version-tools@main
+  - uses: ./.github/actions/fetch-source
+  - name: Build ${{ inputs.framework }} ${{ inputs.configuration }}
+    shell: bash
+    run: |-
+      dotnet build -f ${{ inputs.framework }} -c ${{ inputs.configuration }} Unity.Mathematics
