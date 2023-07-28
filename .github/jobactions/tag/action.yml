@@ -1,0 +1,69 @@
+name: jobactions/tag
+inputs:
+  prerelease:
+    description: version '-prerelease.num' part
+    required: false
+    default: ''
+  buildmeta:
+    description: version '+buildmeta.text' part
+    required: false
+    default: ''
+outputs:
+  version:
+    description: updated tag/version
+    value: ${{ steps.update-tag.outputs.value }}
+runs:
+  using: composite
+  steps:
+  - uses: kagekirin/gha-utils/.github/actions/install-prerequisites@main
+  - uses: kagekirin/gha-utils/.github/actions/install-version-tools@main
+  - uses: ./.github/actions/fetch-source
+  - id: product-version
+    uses: kagekirin/node-package-version/.github/actions/get-version@main
+    with:
+      file: Unity.Mathematics-orig/src/package.json
+  - shell: bash
+    run: |-
+      echo "${{ steps.product-version.outputs.version }}"
+  - id: get-revcount
+    shell: bash
+    run: |-
+      revcount=$(git rev-list --tags --count)
+      echo "revcount=${revcount}"
+      echo "revcount=${revcount}" >> $GITHUB_OUTPUT
+  - shell: bash
+    run: |-
+      echo "revcount=${{ steps.get-revcount.outputs.revcount }}"
+  - id: generate-tag
+    shell: bash
+    run: |-
+      tag=${{ steps.product-version.outputs.version }}
+
+      if [[ -n ${{ inputs.prerelease }} ]]; then
+        tag=$tag-${{ inputs.prerelease }}.${{ steps.get-revcount.outputs.revcount }}
+      fi
+
+      if [[ -n ${{ inputs.buildmeta }} ]]; then
+        tag=$tag+${{ inputs.buildmeta }}
+      fi
+      echo "tag=${tag}" >> $GITHUB_OUTPUT
+  - id: update-tag
+    shell: bash
+    run: |-
+      git config --local user.name "CI Bot [on behalf of Chris Helmich]"
+      git config --local user.email kagekirin+gha@gmail.com
+      git --no-pager status
+      git --no-pager tag -l --sort=-v:refname | head -n 1
+
+      version=${{ steps.generate-tag.outputs.tag }}
+      echo "Version: ${version}"
+      npm version ${version} --no-git-tag-version
+      csproj-version set --version ${version} --xpath '//PropertyGroup/Version' Unity.Mathematics/Unity.Mathematics.csproj
+
+      git add package.json
+      git add Unity.Mathematics/Unity.Mathematics.csproj
+      git commit -m "chore: update version to ${version}"
+      git tag -f v${version}
+
+      git --no-pager tag -l --sort=-v:refname | head -n 1
+      echo "value=${version}" >> $GITHUB_OUTPUT
