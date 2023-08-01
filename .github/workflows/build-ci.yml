@@ -26,11 +26,23 @@ jobs:
     steps:
     - uses: actions/checkout@v3.5.0
     - uses: ./.github/actions/fetch-source
-    - uses: ./.github/jobactions/tag
+    - id: create-tag
+      uses: ./.github/jobactions/tag
       with:
         prerelease: nuget
-        buildmeta: 'xx'
+    - shell: bash
+      run: |-
+        git checkout -b ci/tag-${{ steps.create-tag.outputs.version }} main
     - uses: kagekirin/gha-utils/.github/actions/git-push-tag@main
       with:
         repositoryUrl: origin
-        branch: main
+        baseBranch: main
+        mergeBranch: ci/tag-${{ steps.create-tag.outputs.version }}
+
+  test-nuget:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - uses: actions/checkout@v3.5.0
+    - uses: ./.github/actions/fetch-source
+    - uses: ./.github/jobactions/nuget-prepare-publish
