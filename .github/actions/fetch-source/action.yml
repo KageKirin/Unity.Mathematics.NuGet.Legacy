@@ -6,6 +6,7 @@ runs:
     with:
       repositoryUrl: https://github.com/Unity-Technologies/Unity.Mathematics.git
       repositoryPath: Unity.Mathematics-orig
+      repositoryBranch: master
   - name: Copy source files
     shell: bash
     run: |
