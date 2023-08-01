@@ -1,0 +1,33 @@
+name: Unity.Mathematics.NuGet/publish
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+        framework: [netstandard2.1, net6.0, net7.0]
+    steps:
+    - uses: actions/checkout@v3.5.0
+    - uses: ./.github/actions/fetch-source
+    - uses: ./.github/jobactions/build
+      with:
+        configuration: ${{ matrix.configuration }}
+        framework: ${{ matrix.framework }}
+
+  nuget:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - uses: actions/checkout@v3.5.0
+    - uses: ./.github/actions/fetch-source
+    - uses: ./.github/jobactions/nuget-prepare-publish
+    - uses: kagekirin/gha-dotnet/.github/actions/nuget-publish@main
+      with:
+        registry: github-nuget
+        token: ${{ github.token }}
