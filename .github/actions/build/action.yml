@@ -11,10 +11,4 @@ runs:
   - name: Build (${{ inputs.configuration }}) ${{ inputs.framework }}
     shell: bash
     run: |-
-      configuration=${{ inputs.configuration }}
-      framework=${{ inputs.framework }}
-      for a in $(rg --files-with-matches  --type-add "csp:*.csproj" -tcsp "${framework}"); do
-        echo "Building $a with ${framework}/${configuration}"
-        echo dotnet build -f ${framework} -c ${configuration} $a
-        dotnet build -f ${framework} -c ${configuration} $a
-      done
+      dotnet build -f ${{ inputs.framework }} -c ${{ inputs.configuration }} Unity.Mathematics
