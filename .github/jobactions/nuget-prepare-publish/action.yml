@@ -1,0 +1,32 @@
+name: jobactions/nuget-prepare-publish
+runs:
+  using: composite
+  steps:
+  - uses: kagekirin/gha-utils/.github/actions/install-prerequisites@main
+  - uses: kagekirin/gha-dotnet/.github/actions/nuget-add-registry@main
+    with:
+      name: github-nuget
+      registry: https://nuget.pkg.github.com/kagekirin/unity.mathematics.nuget/index.json
+      username: kagekirin
+      token: ${{ github.token }}
+  - uses: ./.github/jobactions/build
+    with:
+      framework: netstandard2.1
+      configuration: Release
+  - uses: kagekirin/gha-dotnet/.github/actions/nuget-pack@main
+    with:
+      framework: netstandard2.1
+  - uses: ./.github/jobactions/build
+    with:
+      framework: net6.0
+      configuration: Release
+  - uses: kagekirin/gha-dotnet/.github/actions/nuget-pack@main
+    with:
+      framework: net6.0
+  - uses: ./.github/jobactions/build
+    with:
+      framework: net7.0
+      configuration: Release
+  - uses: kagekirin/gha-dotnet/.github/actions/nuget-pack@main
+    with:
+      framework: net7.0
