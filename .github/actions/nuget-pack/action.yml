@@ -15,8 +15,5 @@ runs:
   - name: Run nuget pack with ${{ inputs.framework }}
     shell: bash
     run: |-
-      framework=${{ inputs.framework }}
-      for a in $(rg --files-with-matches  --type-add "csp:*.csproj" -tcsp "${framework}"); do
-        dotnet pack -c ${{ inputs.configuration }} -p:TargetFramework=${framework} $a || echo "Error"
-      done
+      dotnet pack -c ${{ inputs.configuration }} -p:TargetFramework=${framework} Unity.Mathematics
       fdfind --no-ignore nupkg$
