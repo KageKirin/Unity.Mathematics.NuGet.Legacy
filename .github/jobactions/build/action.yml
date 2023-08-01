@@ -11,6 +11,7 @@ runs:
   - uses: kagekirin/gha-utils/.github/actions/install-prerequisites@main
   - uses: kagekirin/gha-utils/.github/actions/install-version-tools@main
   - name: Build ${{ inputs.framework }} ${{ inputs.configuration }}
-    shell: bash
-    run: |-
-      dotnet build -f ${{ inputs.framework }} -c ${{ inputs.configuration }} Unity.Mathematics
+    uses: ./.github/actions/build
+    with:
+      framework: ${{ inputs.framework }}
+      configuration: ${{ inputs.configuration }}
