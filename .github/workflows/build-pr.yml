@@ -23,14 +23,18 @@ jobs:
   test-tag:
     runs-on: ubuntu-latest
     needs: build
+    strategy:
+      matrix:
+        prerelease: ['', 'nuget']
+        buildmeta: ['', 'test']
     steps:
     - uses: actions/checkout@v3.5.0
     - uses: ./.github/actions/fetch-source
     - id: create-tag
       uses: ./.github/jobactions/tag
       with:
-        prerelease: nuget
-        buildmeta: 'xx'
+        prerelease: ${{ matrix.prerelease }}
+        buildmeta: ${{ matrix.buildmeta }}
 
   test-nuget:
     runs-on: ubuntu-latest

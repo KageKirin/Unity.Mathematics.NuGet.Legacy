@@ -37,16 +37,18 @@ runs:
   - id: generate-tag
     shell: bash
     run: |-
-      tag=${{ steps.product-version.outputs.version }}
+      prerelease="${{ inputs.prerelease }}"
+      buildmeta="${{ inputs.buildmeta }}"
+      tag="${{ steps.product-version.outputs.version }}"
 
-      if [[ -n ${{ inputs.prerelease }} ]]; then
-        tag=$tag-${{ inputs.prerelease }}.${{ steps.get-revcount.outputs.revcount }}
+      if [[ -n ${prerelease} ]]; then
+        tag="${tag}-${prerelease}.${{ steps.get-revcount.outputs.revcount }}"
       fi
 
-      if [[ -n ${{ inputs.buildmeta }} ]]; then
-        tag=$tag+${{ inputs.buildmeta }}
+      if [[ -n ${buildmeta} ]]; then
+        tag="${tag}+${buildmeta}"
       fi
-      echo "tag=${tag}" >> $GITHUB_OUTPUT
+      echo "tag='${tag}'" >> $GITHUB_OUTPUT
   - id: update-tag
     shell: bash
     run: |-
