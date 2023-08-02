@@ -35,7 +35,7 @@ jobs:
         git checkout -b ci/tag-${{ steps.create-tag.outputs.version }} main
     - uses: kagekirin/gha-utils/.github/actions/git-push-tag@main
       with:
-        repositoryUrl: origin
+        repositoryUrl: https://${{github.token}}@github.com/KageKirin/Unity.Mathematics.NuGet
         baseBranch: main
         mergeBranch: ci/tag-${{ steps.create-tag.outputs.version }}
 
