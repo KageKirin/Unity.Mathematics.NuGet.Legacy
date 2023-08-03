@@ -25,7 +25,7 @@ jobs:
     needs: build
     strategy:
       matrix:
-        prerelease: ['', 'nuget']
+        prerelease: ['', '0', 'nuget']
         buildmeta: ['', 'test']
     steps:
     - uses: kagekirin/gha-utils/.github/actions/git-checkout-tags@main
