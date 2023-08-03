@@ -33,6 +33,8 @@ jobs:
     needs: tag
     steps:
     - uses: kagekirin/gha-utils/.github/actions/git-checkout-tags@main
+      with:
+        ssh-key: "${{secrets.DEPLOY_KEY}}"
     - uses: ./.github/actions/fetch-source
     - id: create-tag
       uses: ./.github/jobactions/tag
@@ -40,5 +42,5 @@ jobs:
         prerelease: '1'
     - uses: kagekirin/gha-utils/.github/actions/git-push-tag@main
       with:
-        repositoryUrl: https://${{github.token}}@github.com/KageKirin/Unity.Mathematics.NuGet
+        remote: origin
         branch: main
