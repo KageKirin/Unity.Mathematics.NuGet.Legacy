@@ -1,6 +1,6 @@
 {
     "name": "com.unity.mathematics.nuget",
-    "version": "1.3.0-nuget.21",
+    "version": "1.3.0-nuget.23",
     "displayName": "Unity.Mathematics (NuGet) [DO NOT USE IN UNITY]",
     "description": "",
     "unity": "2021.1",
