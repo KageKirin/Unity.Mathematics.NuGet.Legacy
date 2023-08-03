@@ -2,11 +2,11 @@ name: fetch-source
 runs:
   using: composite
   steps:
-  - uses: kagekirin/gha-utils/.github/actions/git-checkout-repo@main
+  - uses: kagekirin/gha-utils/.github/actions/git-checkout-tags@main
     with:
-      repositoryUrl: https://github.com/Unity-Technologies/Unity.Mathematics.git
-      repositoryPath: Unity.Mathematics-orig
-      repositoryBranch: master
+      repository: Unity-Technologies/Unity.Mathematics.git
+      path: Unity.Mathematics-orig
+      ref: master
   - name: Copy source files
     shell: bash
     run: |
