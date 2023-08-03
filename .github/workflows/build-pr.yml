@@ -1,6 +1,8 @@
 name: Unity.Mathematics.NuGet/build-pr
 
 on:
+  pull_request:
+    types: [opened, reopened, synchronize]
   push:
     branches-ignore:
       - 'main'
