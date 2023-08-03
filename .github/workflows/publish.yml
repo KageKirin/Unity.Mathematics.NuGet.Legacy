@@ -33,4 +33,4 @@ jobs:
     - uses: kagekirin/gha-dotnet/.github/actions/nuget-publish@main
       with:
         registry: github-nuget
-        token: ${{ github.token }}
+        token: ${{ secrets.GH_NUGET_TOKEN }}
