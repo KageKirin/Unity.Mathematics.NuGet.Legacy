@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.1;net6.0;net7.0</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <FileAlignment>512</FileAlignment>
-    <Version>1.3.0-nuget.20</Version>
+    <Version>1.3.0-nuget.21</Version>
     <RepositoryUrl>https://github.com/kagekirin/Unity.Mathematics.NuGet</RepositoryUrl>
   </PropertyGroup>
 
