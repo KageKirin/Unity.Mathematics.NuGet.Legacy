@@ -44,3 +44,6 @@ jobs:
     - uses: kagekirin/gha-utils/.github/actions/git-checkout-tags@main
     - uses: ./.github/actions/fetch-source
     - uses: ./.github/jobactions/nuget-prepare-publish
+      with:
+        name: github-nuget
+        token: ${{ secrets.GH_NUGET_TOKEN }}
