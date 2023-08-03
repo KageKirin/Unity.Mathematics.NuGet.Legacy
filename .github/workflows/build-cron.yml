@@ -36,6 +36,8 @@ jobs:
     - uses: ./.github/actions/fetch-source
     - id: create-tag
       uses: ./.github/jobactions/tag
+      with:
+        prerelease: '1'
     - uses: kagekirin/gha-utils/.github/actions/git-push-tag@main
       with:
         repositoryUrl: https://${{github.token}}@github.com/KageKirin/Unity.Mathematics.NuGet
